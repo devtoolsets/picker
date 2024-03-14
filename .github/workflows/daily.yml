@@ -21,14 +21,23 @@ jobs:
         run: |
           python3 -m pip install -r requirements.txt
 
-      - name: collect pages
+      - name: Prepare wiki repository
         run: |
           git config --global user.email ${{ secrets.REPO_OWNER_EMAIL }}
           git config --global user.name  ${GITHUB_REPOSITORY_OWNER}
           git clone --depth 1 https://${GITHUB_REPOSITORY_OWNER}:${{ secrets.REPO_ACCESS_TOKEN}}@github.com/${GITHUB_REPOSITORY}.wiki.git wiki
+
+      - name: Collect and commit wiki pages
+        run: |
           python3 collect.py
           pushd wiki
           git add .
           git commit -m "$(date +%F) 收集"
           git push
           popd
+
+      - name: Notification
+        run: |
+          curl -X "POST" "https://api.day.app/push" \
+               -H 'Content-Type: application/json; charset=utf-8' \
+               -d "{\"title\": \"$(date +%F)收集\", \"body\": \"https://github.com/${GITHUB_REPOSITORY}/wiki/$(date +%F)\", \"device_key\": \"${{ secrets.BARK_DEVICE_KEY }}\" }"
