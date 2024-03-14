@@ -1,0 +1,34 @@
+# https://docs.github.com/cn/actions/automating-builds-and-tests/building-and-testing-python
+
+name: Daily-Collect
+
+on:
+  schedule:
+    - cron: '55 2 * * *'
+  workflow_dispatch:
+
+jobs:
+  daily:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.x'
+
+      - name: Install dependency
+        run: |
+          python3 -m pip install -r requirements.txt
+
+      - name: collect pages
+        run: |
+          git config --global user.email ${REPO_OWNER_EMAIL}
+          git config --global user.name  ${GITHUB_REPOSITORY_OWNER}
+          git clone --depth 1 https://${GITHUB_REPOSITORY_OWNER}:${{ secrets.REPO_ACCESS_TOKEN}}@github.com/${GITHUB_REPOSITORY}.wiki.git wiki
+          python3 collect.py
+          pushd wiki
+          git add .
+          git commit -m "$(date +%F) 收集"
+          git push
+          popd
