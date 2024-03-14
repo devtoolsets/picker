@@ -1,6 +1,6 @@
 # https://docs.github.com/cn/actions/automating-builds-and-tests/building-and-testing-python
 
-name: Daily-Collect
+name: Daily Collect
 
 on:
   schedule:
@@ -23,7 +23,7 @@ jobs:
 
       - name: collect pages
         run: |
-          git config --global user.email ${REPO_OWNER_EMAIL}
+          git config --global user.email ${{ secrets.REPO_OWNER_EMAIL }}
           git config --global user.name  ${GITHUB_REPOSITORY_OWNER}
           git clone --depth 1 https://${GITHUB_REPOSITORY_OWNER}:${{ secrets.REPO_ACCESS_TOKEN}}@github.com/${GITHUB_REPOSITORY}.wiki.git wiki
           python3 collect.py
