@@ -1,47 +1,46 @@
 repo: https://github.com/devtoolsets/picker
+httpRetry: 3
+httpTimeout: 3
+output: wiki
+max_workers: 64
 proxy:
-  url: 'http://127.0.0.1:7890'
-  rss: false
-  bot: false
-rss:
-  CustomRSS:
-    enabled: false
-    filename: CustomRSS.opml
-  ResearchRSS:
+  url: http://127.0.0.1:7890
+  enable: false
+feeds:
+  Custom:
     enabled: true
-    filename: ResearchRSS.opml
+    filename: config/CustomRSS.opml
+  Research:
+    enabled: true
+    filename: config/ResearchRSS.opml
   Subscriptions-OnMyMac:
     enabled: true
-    filename: Subscriptions-OnMyMac.opml
-  CyberSecurityRSS:
-    enabled: false
-    url: >-
-      https://raw.githubusercontent.com/zer0yu/CyberSecurityRSS/master/CyberSecurityRSS.opml
-    filename: CyberSecurityRSS.opml
+    filename: config/Subscriptions-OnMyMac.opml
+  CyberSecurity:
+    enabled: true
+    filename: config/CyberSecurityRSS.opml
+    url: https://raw.githubusercontent.com/zer0yu/CyberSecurityRSS/master/CyberSecurityRSS.opml
   CyberSecurityRSS-tiny:
     enabled: true
-    url: 'https://raw.githubusercontent.com/zer0yu/CyberSecurityRSS/master/tiny.opml'
-    filename: CyberSecurityRSS-tiny.opml
-  Chinese-Security-RSS:
+    filename: config/CyberSecurityRSS-tiny.opml
+    url: https://raw.githubusercontent.com/zer0yu/CyberSecurityRSS/master/tiny.opml
+  Chinese-Independent-Blogs:
     enabled: true
-    url: >-
-      https://raw.githubusercontent.com/zhengjim/Chinese-Security-RSS/master/Chinese-Security-RSS.opml
-    filename: Chinese-Security-RSS.opml
+    filename: config/chinese-independent-blogs.opml
+    url: https://raw.githubusercontent.com/timqian/chinese-independent-blogs/master/feed.opml
+  Chinese-Security:
+    enabled: true
+    filename: config/Chinese-Security-RSS.opml
+    url: https://raw.githubusercontent.com/zhengjim/Chinese-Security-RSS/master/Chinese-Security-RSS.opml
+  Security:
+    enabled: true
+    filename: config/SecureRss.opml
+    url: https://github.com/Han0nly/SecurityRSS/blob/master/SecureRss.opml
   awesome-security-feed:
-    enabled: false
-    url: >-
-      https://raw.githubusercontent.com/mrtouch93/awesome-security-feed/main/security_feeds.opml
-    filename: awesome-security-feed.opml
-  SecurityRSS:
     enabled: true
-    url: 'https://github.com/Han0nly/SecurityRSS/blob/master/SecureRss.opml'
-    filename: SecureRss.opml
-  wechatRSS:
+    filename: config/awesome-security-feed.opml
+    url: https://raw.githubusercontent.com/mrtouch93/awesome-security-feed/main/security_feeds.opml
+  WeChat:
     enabled: true
-    url: 'https://wechat2rss.xlab.app/opml/sec.opml'
-    filename: wechatRSS.opml
-  chinese-independent-blogs:
-    enabled: true
-    url: >-
-      https://raw.githubusercontent.com/timqian/chinese-independent-blogs/master/feed.opml
-    filename: chinese-independent-blogs.opml
+    filename: config/wechatRSS.opml
+    url: https://wechat2rss.xlab.app/opml/sec.opml

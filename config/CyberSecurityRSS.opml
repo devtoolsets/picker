@@ -605,7 +605,6 @@
 <outline type="rss" xmlUrl="https://cornerpirate.com/feed/" title="cornerpirate.com" text="cornerpirate.com" htmlUrl="https://cornerpirate.com" />
 <outline htmlUrl="http://p0sec.net" title="p0's blog | 破" xmlUrl="http://p0sec.net/index.php/feed/" text="p0's blog | 破" type="rss" />
 <outline text="威尔的代码站" title="威尔的代码站" htmlUrl="https://blog.binklac.com/atom.xml" type="rss" xmlUrl="http://blog.binklac.com/atom.xml" />
-<outline title="xmsec - 陌小生" text="xmsec - 陌小生" type="rss" xmlUrl="http://www.xmsec.cc/rss/" htmlUrl="https://www.xmsec.cc/" />
 <outline type="rss" htmlUrl="https://artsploit.blogspot.com/" xmlUrl="https://artsploit.blogspot.com/feeds/posts/default" title="Artsploit" text="Artsploit" />
 <outline xmlUrl="https://f4d3.io/feed.xml" title="f4d3.io [Bourne Again]" htmlUrl="https://f4d3.io/" text="f4d3.io [Bourne Again]" type="rss" />
 <outline htmlUrl="https://blog.jmpesp.org/" text="Andrew's Research" title="Andrew's Research" xmlUrl="https://blog.jmpesp.org/feeds/posts/default?alt=rss" type="rss" />

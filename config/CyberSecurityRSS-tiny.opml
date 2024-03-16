@@ -293,7 +293,6 @@
 <outline xmlUrl="https://www.ambionics.io/feeds/all.atom.xml" htmlUrl="https://www.ambionics.io/" type="rss" text="Ambionics" title="Ambionics" />
 <outline xmlUrl="https://blog.wanghw.cn/feed" text="Whwlsfb's Tech Blog" type="rss" htmlUrl="https://blog.wanghw.cn" title="Whwlsfb's Tech Blog" />
 <outline htmlUrl="https://www.inputzero.io/" xmlUrl="https://www.inputzero.io/feeds/posts/default" title="inputzero" text="inputzero" type="rss" />
-<outline xmlUrl="http://www.xmsec.cc/rss/" title="xmsec - 陌小生" text="xmsec - 陌小生" type="rss" htmlUrl="https://www.xmsec.cc/" />
 <outline htmlUrl="/atom.xml" title="丶诺熙丨5am3" xmlUrl="https://blog.5am3.com/atom.xml" text="丶诺熙丨5am3" type="rss" />
 <outline htmlUrl="https://10degres.net/posts/" type="rss" title="Posts on 10degres" text="Posts on 10degres" xmlUrl="http://10degres.net/posts/index.xml" />
 <outline xmlUrl="http://wutongyu.info/feed/" title="梧桐雨blog" htmlUrl="http://wutongyu.info" type="rss" text="梧桐雨blog" />

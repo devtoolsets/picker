@@ -66,12 +66,11 @@
 		<outline text="Swing'Blog 浮生若梦" title="Swing'Blog 浮生若梦" description="" type="rss" version="RSS" htmlUrl="" xmlUrl="https://bestwing.me/atom.xml"/>
 		<outline text="TRY博客" title="TRY博客" description="" type="rss" version="RSS" htmlUrl="https://www.nctry.com/" xmlUrl="https://www.nctry.com/feed"/>
 		<outline text="Uknow - Stay hungry Stay foolish" title="Uknow - Stay hungry Stay foolish" description="" type="rss" version="RSS" htmlUrl="" xmlUrl="http://uknowsec.cn/atom.xml"/>
-		<outline text="xmsec - 陌小生" title="xmsec - 陌小生" description="" type="rss" version="RSS" htmlUrl="https://www.xmsec.cc/" xmlUrl="https://www.xmsec.cc/rss/"/>
 		<outline text="Y4er的博客" title="Y4er的博客" description="" type="rss" version="RSS" htmlUrl="https://y4er.com/" xmlUrl="https://y4er.com/index.xml"/>
 		<outline text="Y4tacker's Blog" title="Y4tacker's Blog" description="" type="rss" version="RSS" htmlUrl="" xmlUrl="https://y4tacker.github.io/atom.xml"/>
 		<outline text="Y4tacker的博客" title="Y4tacker的博客" description="" type="rss" version="RSS" htmlUrl="https://blog.csdn.net/solitudi" xmlUrl="https://blog.csdn.net/solitudi/rss/list?spm=1001.2014.3001.5494"/>
 		<outline text="Yunen's Blog" title="Yunen's Blog" description="" type="rss" version="RSS" htmlUrl="" xmlUrl="https://www.0x002.com/atom.xml"/>
-		<outline text="ZAWX_NETSTARSEC的博客" title="ZAWX_NETSTARSEC的博客" description="" type="rss" version="RSS" htmlUrl="https://blog.csdn.net/ZAWX_NETSTARSEC" xmlUrl="https://blog.csdn.net/ZAWX_NETSTARSEC/rss/list"/>
+		<outline text="ZAWX_NETSTARSEC的博客" title="ZAWX_NETSTARSEC的博客" description="" type="rss" version="RSS" htmlUrl="https://blog.csdn.net/ZAWX_NETSTARSEC" xmlUrl="https://rss.csdn.net/ZAWX_NETSTARSEC/rss/map"/>
 		<outline text="Zgao's blog" title="Zgao's blog" description="" type="rss" version="RSS" htmlUrl="https://zgao.top/" xmlUrl="https://zgao.top/feed/"/>
 		<outline text="zsx's Blog" title="zsx's Blog" description="" type="rss" version="RSS" htmlUrl="https://blog.zsxsoft.com/" xmlUrl="https://blog.zsxsoft.com/feed.php"/>
 	</outline>
