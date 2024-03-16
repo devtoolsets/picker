@@ -18,21 +18,10 @@ from utils import *
 
 requests.packages.urllib3.disable_warnings()
 
-pattern = re.compile(r'[\\\*\?\|\s/:"<>]')
-
-
-class FeedInfo:
-    def __init__(self):
-        # {order: [{ url: url, feeds: [ {link : title, txt: md},{link : title} ]}]}
-        self.order = 0
-        self.title = ''
-        self.url = ''
-        self.feeds = []
-
-
 today = datetime.datetime.now().strftime("%Y-%m-%d")
 yesterday = datetime.date.today() + datetime.timedelta(-1)
 rootPath = Path(__file__).absolute().parent
+pattern = re.compile(r'[\\\*\?\|\s/:"<>]')
 httpHeader = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.75 Safari/537.36',
     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/png,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
@@ -57,15 +46,7 @@ def writeWiki(config, data: dict = {}):
             summary += f'- [{summaryTitle}]({summaryURL})\n'
 
             for url, page in pages.items():
-                try:
-                    [pageTitle, pageText], = page.items()
-                except Exception as e:
-                    colorPrint.failed(f'{summaryTitle}/{page} download failed, url info {summaryURL}/url')
-                    continue
-
-                summary += f'  - [ ] [{pageTitle}]({url})\n'
-                with open(f'{detail}/{summaryTitle}-{pageTitle}.md', 'w+', encoding="utf-8") as file:
-                    file.write(pageText)
+                summary += f'  - [ ] [{page}]({url})\n'
 
     with open(wikiPath, 'w+', encoding="utf-8") as file:
         file.write(summary)
@@ -96,7 +77,6 @@ def loadConfig(yml: dict):
     for info in config["feeds"]:
         group = info['group']
         opmlPath = info['path']
-        update = False
         try:
             tree = etree.parse(opmlPath)
             root = tree.getroot()
@@ -106,23 +86,15 @@ def loadConfig(yml: dict):
                 if not [item for item in feedSet if short in item]:
                     feedSet.add(url)
                     info['url'].add(url)
-                else:
-                    update = True
-                    outline.getparent().remove(outline)
 
         except Exception as e:
             config["feeds"].remove(info)
             config["update"] = True
             node[group]['enabled'] = False
-            colorPrint.failed(f"[-] Failed parse '{opmlPath}'")
-            colorPrint.focus(f'           {e}')
+            colorPrint.failed(f"[-] Failed parse '{opmlPath}' {e}")
 
     colorPrint.focus(f'[+] {len(feedSet)} feeds')
     return config
-
-
-def parseHTML(url: str, response: requests.models.Response):
-    return {url: html2text(response.content.decode('utf-8'), url)}
 
 
 def parseFeed(url: str, response: requests.models.Response):
@@ -156,11 +128,15 @@ def httpGet(executor, url: str, **params):
             response = requests.get(url, headers=httpHeader, verify=False,
                                     timeout=params['timeout'],
                                     proxies=params['proxy'])
-            return params['process'](url, response)
+            if response.status_code < 400:
+                return params['process'](url, response)
+            else:
+                colorPrint.failed(
+                    f'[-] Status code {response.status_code} for "{url}"')
 
         except Exception as e:
             colorPrint.failed(
-                f'[-] failed {count+1} times to parse "{url}"| {e}')
+                f'[-] failed {count+1} times to get "{url}"|{e}')
 
 
 def worker(executor, iterators, operation, **params):
@@ -175,7 +151,7 @@ def worker(executor, iterators, operation, **params):
     return result
 
 
-def pickLatestPageLink(executor, order, **params):
+def pickLatestPage(executor, order, **params):
     group = params["feeds"][order]
     argv = {
         'process': parseFeed,
@@ -184,50 +160,30 @@ def pickLatestPageLink(executor, order, **params):
         'retry': params['retry']
     }
 
-    feeds = worker(executor, group.get('url'), httpGet, **argv)
-
-    argv['process'] = parseHTML
-    for _, feed in enumerate(feeds):
-        pages = [url for url in feed['pages']]
-        result = worker(executor, pages, httpGet, **argv)
-
-        for _, item in enumerate(result):
-            [url, text], = item.items()
-            title = feed['pages'][url]
-            feed['pages'][url] = {title: text}
-
-    return feeds
+    return worker(executor, group.get('url'), httpGet, **argv)
 
 
 def job(args, yamlConfig):
     config = loadConfig(yamlConfig)
     with ThreadPoolExecutor(config['max_workers']) as executor:
         results = worker(executor, range(len(config["feeds"])),
-                         pickLatestPageLink, **config)
+                         pickLatestPage, **config)
 
-    # 更新today
     writeWiki(config, results)
     return config
 
 
 def argument():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--update',
-                        help='Update RSS config file',
-                        action='store_true',
-                        required=False)
-    parser.add_argument('--config',
-                        help='Use specified config file',
-                        type=str,
-                        required=False)
-
+    parser.add_argument('--update', help='Update config file', required=False)
+    parser.add_argument('--config', help='Specify config file', required=False)
     return parser.parse_args()
 
 
 if __name__ == '__main__':
     args = argument()
-
     yamlConfig = {}
+
     if args.config:
         configPath = Path(args.config).expanduser().absolute()
     else:
